@@ -6,8 +6,35 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/login.css">
+    <script src="js/vue.min.js" defer></script>
+    <script src="js/axios.min.js" defer></script>
+    <script src="js/app.js" defer></script>
 </head>
-<body>
-<p>It works!</p>
+<body class="text-center">
+<div class="form-signin" id="app">
+    <form v-show="init && !user" novalidate>
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <label for="username" class="sr-only">Username</label>
+        <input v-model="username" type="text" id="username" class="form-control" placeholder="Username" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input v-model="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <a type="button" href="#" :disabled="username === null || password === null || username.length < 3 || password.length < 3" class="btn btn-lg btn-primary btn-block" @click="loginWithBasicAuthorizationHeader()" >Sign in</a>
+    </form>
+    <div v-if="init && user">
+        <p>logged  as {{user.username}}! </p>
+        <p>Here are your roles: {{user.authorities}}</p>
+        <p>You can access from the backend:</p>
+        <div class="btn-group">
+            <button @click="adminPage" class="btn btn-danger" v-if="hasRole('ADMIN')">Admin Request</button>
+            <button @click="userPage" class="btn btn-info" v-if="hasRole('USER')">User Request</button>
+            <button @click="logout" class="btn btn-warning">Logout</button>
+        </div>
+    </div>
+    <div :class="'alert alert-'+message.status+' mt-3'" v-if="message"><p>{{message.text}}</p></div>
+</div>
+
 </body>
 </html>
