@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .requestCache(new NullRequestCache()).and()
                 .httpBasic().realmName("login").and()
                 .exceptionHandling()
-                .authenticationEntryPoint((req, resp, e) -> resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getMessage()))
+                .authenticationEntryPoint((req, resp, e) -> resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED))
                 .and()
                 .formLogin().disable()
         ;
