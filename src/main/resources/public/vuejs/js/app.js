@@ -1,6 +1,3 @@
-// *************************************************************************************************************
-// Author: Nordine Bittich
-// *************************************************************************************************************
 const REST_URL= location.protocol + '//' + location.hostname + ':' + location.port;
 const APP_ID = '#app';
 const X_AUTH_TOKEN_HEADER = 'x-auth-token';
@@ -65,7 +62,10 @@ const APP = new Vue({
                 console.log("token not present");
             }
         },
-        loginWithBasicAuthorizationHeader: async function () {
+        loginWithBasicAuthorizationHeader: async function (event) {
+            if (event) {
+                event.preventDefault();
+            }
             let headerValue = 'Basic ' + window.btoa(this.username + ':' + this.password);
             await this.login(AUTHORIZATION_HEADER,headerValue);
         },
@@ -80,6 +80,7 @@ const APP = new Vue({
                     localStorage.setItem(X_AUTH_TOKEN_HEADER, token);
                 }
             } catch (e) {
+                console.log('error: ', e);
                 this.message = {text:e.message, status: STATUS_ERROR};
             }
         },

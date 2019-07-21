@@ -21,8 +21,8 @@
         <input v-model="username" type="text" id="username" class="form-control" placeholder="Username" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
         <input v-model="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-        <button v-show="username && password && username.length > 3 && password.length > 3" class="btn btn-lg btn-primary btn-block" @click="loginWithBasicAuthorizationHeader()" >Sign in</button>
-        <button v-show="!username || !password || username.length <= 3 || password.length <= 3"  disabled class="btn btn-lg btn-primary btn-block" @click="loginWithBasicAuthorizationHeader()" >Sign in</button>
+        <button v-show="username && password && username.length > 3 && password.length > 3" class="btn btn-lg btn-primary btn-block" @click="loginWithBasicAuthorizationHeader($event)">Sign in</button>
+        <button v-show="!username || !password || username.length <= 3 || password.length <= 3"  disabled class="btn btn-lg btn-primary btn-block" >Sign in</button>
     </form>
     <div v-if="init && user">
         <p>logged  as {{user.username}}! </p>
