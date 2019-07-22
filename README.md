@@ -38,3 +38,7 @@ e. Default credentials
 f. Database
 
     - default is H2 (embedded)
+
+g. Last release
+    
+    0.0.1 - 22/07/2019
