@@ -48,13 +48,10 @@ const APP = new Vue({
             this.password = null;
         },
         logout: function () {
-            localStorage.removeItem(X_AUTH_TOKEN_HEADER);
+            AuthenticationService.logout();
             this.user = null;
             this.clearForm();
             this.message = {text: 'Disconnected', status: STATUS_ERROR};
-        },
-        getTokenFromLocalStorage: function () {
-            return localStorage.getItem(X_AUTH_TOKEN_HEADER);
         },
         loginWithBasicAuthorizationHeader: async function (event) {
             if (event) {

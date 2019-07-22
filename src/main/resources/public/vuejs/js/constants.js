@@ -1,6 +1,6 @@
 const REST_URL= location.protocol + '//' + location.hostname + ':' + location.port;
 const APP_ID = '#app';
-const X_AUTH_TOKEN_HEADER = 'x-auth-token';
+const JWT_TOKEN_STORE = 'JSONTOKENSTORE';
 const AUTHORIZATION_HEADER = 'Authorization';
 const PATH_USER_INFO = '/user/info';
 const PATH_ADMIN_WELCOME = '/admin/welcome';
