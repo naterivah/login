@@ -49,7 +49,6 @@ public class LoginApplicationTests {
         String username = "admin";
         String passsword = "test";
         String urlUserInfo = "/user/info";
-        String headerToken = "x-auth-token";
         // when
         ResponseEntity<User> body = this.restTemplate.withBasicAuth(username, passsword)
                 .postForEntity(urlUserInfo,null,User.class);
@@ -61,13 +60,13 @@ public class LoginApplicationTests {
         Assertions.assertThat(body.getBody().getPassword()).isNull();
         Assertions.assertThat(body.getBody().getRoles()).containsExactlyInAnyOrder(ADMIN, USER);
 
-        List<String> xAuthTokens = body.getHeaders().get(headerToken);
-        Assertions.assertThat(xAuthTokens).isNotNull().isNotEmpty();
+        List<String> jwt = body.getHeaders().get("Authorization");
+        Assertions.assertThat(jwt).isNotNull().isNotEmpty();
 
         // given
-        String token = xAuthTokens.get(0);
+        String token = jwt.get(0);
         HttpHeaders headers = new HttpHeaders();
-        headers.set(headerToken, token);
+        headers.set("Authorization", token);
         HttpEntity<Void> request = new HttpEntity<>(null, headers);
         // when
         ResponseEntity<User> user = this.restTemplate
