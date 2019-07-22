@@ -1,4 +1,4 @@
-# Login Server
+# Authentication Server
 Base for an authentication server implemented with spring boot. The logic:
 - make a first request to /user/info using Basic Authentication to perform the login
 - if authentication is valid then create a new session for the user and store it into the database (see spring session)
