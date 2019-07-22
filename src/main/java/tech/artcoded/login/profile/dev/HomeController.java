@@ -1,4 +1,4 @@
-package tech.artcoded.login.fixture;
+package tech.artcoded.login.profile.dev;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -6,7 +6,6 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

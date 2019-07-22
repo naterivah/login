@@ -1,4 +1,4 @@
-package tech.artcoded.login.fixture;
+package tech.artcoded.login.profile.dev;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.CrossOrigin;

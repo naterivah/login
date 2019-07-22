@@ -1,4 +1,4 @@
-package tech.artcoded.login.fixture;
+package tech.artcoded.login.profile.dev;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +10,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import tech.artcoded.login.entity.User;
 import tech.artcoded.login.repository.UserRepository;
 
-import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static tech.artcoded.login.entity.Role.ADMIN;
-import static tech.artcoded.login.entity.Role.USER;
 
 @Configuration
 @Profile("dev")
