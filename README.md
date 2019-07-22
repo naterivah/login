@@ -47,7 +47,7 @@ e. Default credentials
     
 a. Proxy
     
-    - proxy is configured under the application-xxx.yml file
+    - proxy is configured under the application-route.yml file
     
     - example of routing:
     
@@ -64,4 +64,4 @@ f. Database
 
 g. Last release
     
-    0.0.1 - 22/07/2019
+    0.0.3 - 22/07/2019

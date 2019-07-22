@@ -1,0 +1,6 @@
+zuul:
+  routes:
+    # example of route to proxy - add yours here
+    hello:
+      path: /proxy/hello/**
+      url: https://api.whatdoestrumpthink.com/api/v1/quotes/random # example of route to proxy

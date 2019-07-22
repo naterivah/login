@@ -1,3 +1,4 @@
 spring:
   profiles:
-    active: dev
+    active: dev # profile to use.
+    include: route # include proxy routing file
