@@ -53,6 +53,7 @@ public class LoginApplicationTests {
         ResponseEntity<User> body = this.restTemplate.withBasicAuth("admin", "test")
                 .postForEntity("/user/info",null,User.class);
         Assertions.assertThat(body).isNotNull();
+        Assertions.assertThat(body.getBody()).isNotNull();
         Assertions.assertThat(body.getStatusCode()).isEqualTo(HttpStatus.OK);
         List<String> xAuthTokens = body.getHeaders().get("x-auth-token");
         Assertions.assertThat(xAuthTokens).isNotNull().isNotEmpty();
