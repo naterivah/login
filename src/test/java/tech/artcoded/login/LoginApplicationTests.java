@@ -50,30 +50,38 @@ public class LoginApplicationTests {
     @Test
     @SneakyThrows
     public void contextLoads() {
-        ResponseEntity<User> body = this.restTemplate.withBasicAuth("admin", "test")
-                .postForEntity("/user/info",null,User.class);
+        // given
+        String username = "admin";
+        String passsword = "test";
+        String urlUserInfo = "/user/info";
+        String headerToken = "x-auth-token";
+        // when
+        ResponseEntity<User> body = this.restTemplate.withBasicAuth(username, passsword)
+                .postForEntity(urlUserInfo,null,User.class);
+        // then
         Assertions.assertThat(body).isNotNull();
         Assertions.assertThat(body.getBody()).isNotNull();
         Assertions.assertThat(body.getStatusCode()).isEqualTo(HttpStatus.OK);
-        List<String> xAuthTokens = body.getHeaders().get("x-auth-token");
-        Assertions.assertThat(xAuthTokens).isNotNull().isNotEmpty();
-        String token = xAuthTokens.get(0);
-        Assertions.assertThat(token).isNotEmpty();
-        Assertions.assertThat(body.getBody().getUsername()).isEqualTo("admin");
+        Assertions.assertThat(body.getBody().getUsername()).isEqualTo(username);
         Assertions.assertThat(body.getBody().getPassword()).isNull();
         Assertions.assertThat(body.getBody().getRoles()).containsExactlyInAnyOrder(ADMIN, USER);
 
-        // from token
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("x-auth-token", token);
+        List<String> xAuthTokens = body.getHeaders().get(headerToken);
+        Assertions.assertThat(xAuthTokens).isNotNull().isNotEmpty();
 
+        // given
+        String token = xAuthTokens.get(0);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(headerToken, token);
         HttpEntity<Void> request = new HttpEntity<>(null, headers);
+        // when
         ResponseEntity<User> user = this.restTemplate
-                .postForEntity("/user/info",request,User.class);
+                .postForEntity(urlUserInfo,request,User.class);
+        // then
         Assertions.assertThat(user).isNotNull();
         Assertions.assertThat(user.getBody()).isNotNull();
         Assertions.assertThat(user.getStatusCode()).isEqualTo(HttpStatus.OK);
-        Assertions.assertThat(user.getBody().getUsername()).isEqualTo("admin");
+        Assertions.assertThat(user.getBody().getUsername()).isEqualTo(username);
         Assertions.assertThat(user.getBody().getPassword()).isNull();
         Assertions.assertThat(user.getBody().getRoles()).containsExactlyInAnyOrder(ADMIN, USER);
     }
