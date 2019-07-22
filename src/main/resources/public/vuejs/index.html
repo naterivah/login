@@ -5,10 +5,12 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Login using VueJS example</title>
+    <!-- CSS -->
     <link rel="stylesheet" href="css/external/fontawesome.css">
     <link rel="stylesheet" href="css/external/bootstrap.css">
     <link rel="stylesheet" href="css/login.css">
+    <!-- JS -->
     <script src="js/lib/vue.min.js" defer></script>
     <script src="js/lib/axios.min.js" defer></script>
     <script src="js/constants.js" defer></script>
@@ -17,6 +19,7 @@
 </head>
 <body class="text-center">
 <div class="form-signin" id="app">
+    <!--  Login Form -->
     <form v-show="init && !user" novalidate>
         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
         <label for="username" class="sr-only">Username</label>
@@ -26,6 +29,7 @@
         <button v-show="username && password && username.length > 3 && password.length > 3" class="btn btn-lg btn-primary btn-block" @click="loginWithBasicAuthorizationHeader($event)">Sign in</button>
         <button v-show="!username || !password || username.length <= 3 || password.length <= 3"  disabled class="btn btn-lg btn-primary btn-block" >Sign in</button>
     </form>
+    <!-- Main Page -->
     <div v-if="init && user">
         <p>logged  as {{user.username}}! </p>
         <p>Here are your roles: {{user.authorities}}</p>
@@ -36,6 +40,7 @@
             <button @click="logout" class="btn btn-warning">Logout</button>
         </div>
     </div>
+    <!-- Alert message -->
     <div :class="'alert alert-'+message.status+' mt-3'" v-if="message"><p>{{message.text}}</p></div>
 </div>
 
