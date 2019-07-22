@@ -4,6 +4,7 @@ const X_AUTH_TOKEN_HEADER = 'x-auth-token';
 const AUTHORIZATION_HEADER = 'Authorization';
 const PATH_USER_INFO = '/user/info';
 const PATH_ADMIN_WELCOME = '/admin/welcome';
+const PATH_PROXY_HELLO = '/proxy/hello';
 const STATUS_INFO = 'info';
 const STATUS_ERROR = 'danger';
 const ROLE_ANONYMOUS = 'ANONYMOUS';

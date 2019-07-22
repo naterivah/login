@@ -36,6 +36,7 @@
         <p>You can access from the backend:</p>
         <div class="btn-group">
             <button @click="adminPage" class="btn btn-danger" v-if="hasRole('ADMIN')">Admin Request</button>
+            <button @click="proxyPage" class="btn btn-secondary" v-if="hasRole('ADMIN')">Proxy Request</button>
             <button @click="userPage" class="btn btn-info" v-if="hasRole('USER')">User Request</button>
             <button @click="logout" class="btn btn-warning">Logout</button>
         </div>

@@ -1,0 +1,18 @@
+spring:
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: embedded
+  jpa:
+    database: h2
+  resources:
+    add-mappings: true # disable the default frontend when you use only the backend server
+
+
+
+zuul:
+  routes:
+    # example of route to proxy - add yours here
+    hello:
+      path: /proxy/hello/**
+      url: http://localhost:8585/greeting/nordine # example of route to proxy

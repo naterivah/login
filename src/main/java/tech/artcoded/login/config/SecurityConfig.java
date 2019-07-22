@@ -1,6 +1,7 @@
 package tech.artcoded.login.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -41,9 +42,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/user/**").hasAuthority(USER.getAuthority())
                 .antMatchers(HttpMethod.POST, "/user/**").hasAuthority(USER.getAuthority())
 
-                .antMatchers(HttpMethod.GET, "/signup/**").anonymous()
-                .antMatchers(HttpMethod.POST, "/signup/**").anonymous()
-                .antMatchers(HttpMethod.PUT, "/signup/**").anonymous()
+                .antMatchers(HttpMethod.GET, "/proxy/**").hasAuthority(ADMIN.getAuthority())
+                .antMatchers(HttpMethod.POST, "/proxy/**").hasAuthority(ADMIN.getAuthority())
+                .antMatchers(HttpMethod.PUT, "/proxy/**").hasAuthority(ADMIN.getAuthority())
 
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 

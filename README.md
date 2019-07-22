@@ -1,9 +1,18 @@
-# Authentication Server
-Base for an authentication server implemented with spring boot. The logic:
+# Authentication & Proxy Server
+Base for an authentication server implemented with spring boot.
+
+Logic:
+
 - make a first request to /user/info using Basic Authentication to perform the login
 - if authentication is valid then create a new session for the user and store it into the database (see spring session)
 - the server sends a response back to the client including the user infos  and a "x-auth-token" header to perform further authentication
 - the client store the x-auth-token and send it back for each request that needs to be performed as an authenticated user 
+
+Proxy feature:
+
+- add your own url to proxy under the application.yml file. 
+- you can then secure them by adding your own rules in the SecurityConfig class
+
 ### How to
 
 a. Using docker
@@ -20,9 +29,9 @@ c. Properties
 
     - other properties: https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 
-    - application.properties: # profile to use
+    - application.yml: # profile to use
     
-    - application-xxxx.properties: # properties loaded depending on the profile used
+    - application-xxxx.yml: # properties loaded depending on the profile used
     
 d. Frontend
     
@@ -34,6 +43,20 @@ e. Default credentials
 
     - username: admin / password: test 
     - username: user / password: user 
+    
+    
+a. Proxy
+    
+    - proxy is configured under the application-xxx.yml file
+    
+    - example of routing:
+    
+    zuul:
+      routes:
+        # example of route to proxy - add yours here
+        hello:
+          path: /admin/hello/**
+          url: http://localhost:8585/greeting/nordine # example of route to proxy
     
 f. Database
 

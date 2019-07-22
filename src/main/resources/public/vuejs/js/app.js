@@ -28,6 +28,12 @@ const APP = new Vue({
                 this.message = {text: JSON.stringify(response.data,null,'\t'), status: STATUS_INFO}
             });
         },
+        proxyPage: async function () {
+            this.authenticationService.authenticatedRequest(async http => {
+                let response = await http.get(PATH_PROXY_HELLO, {});
+                this.message = {text: JSON.stringify(response.data,null,'\t'), status: STATUS_INFO}
+            });
+        },
         userPage: async function () {
             this.authenticationService.authenticatedRequest(async http => {
                 let response = await http.post(PATH_USER_INFO, {}, {});
