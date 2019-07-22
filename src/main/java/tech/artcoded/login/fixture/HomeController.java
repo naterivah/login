@@ -17,18 +17,19 @@ import java.nio.charset.Charset;
 @Slf4j
 @Profile("dev")
 public class HomeController {
-private final String homepageCached;
-@SneakyThrows
+    private final String homepageCached;
+
+    @SneakyThrows
     public HomeController() {
-        try(InputStream is = new ClassPathResource("template/index.html").getInputStream()){
-            this.homepageCached=IOUtils.toString(is, Charset.defaultCharset());
+        try (InputStream is = new ClassPathResource("template/index.html").getInputStream()) {
+            this.homepageCached = IOUtils.toString(is, Charset.defaultCharset());
         }
     }
 
-    @GetMapping(value = {"","/"},produces = MediaType.TEXT_HTML_VALUE)
+    @GetMapping(value = {"", "/"}, produces = MediaType.TEXT_HTML_VALUE)
     @SneakyThrows
-    public String homepage(){
-      log.info("new request for the basic homepage, only for dev purpose!");
-      return this.homepageCached;
+    public String homepage() {
+        log.info("new request for the basic homepage, only for dev purpose!");
+        return this.homepageCached;
     }
 }
