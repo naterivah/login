@@ -1,6 +1,5 @@
 package tech.artcoded.login;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
@@ -15,15 +14,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
-import tech.artcoded.login.entity.Role;
 import tech.artcoded.login.entity.User;
 import tech.artcoded.login.repository.UserRepository;
 
- import java.util.Arrays;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static tech.artcoded.login.entity.Role.ADMIN;
 import static tech.artcoded.login.entity.Role.USER;

@@ -1,12 +1,6 @@
-# Authentication & Proxy Server
-Base for an authentication server implemented with spring boot.
+# Stateless Authentication & Proxy Server (JWT)
 
-Logic:
-
-- make a first request to /user/info using Basic Authentication to perform the login
-- if authentication is valid then create a new session for the user and store it into the database (see spring session)
-- the server sends a response back to the client including the user infos  and a "x-auth-token" header to perform further authentication
-- the client store the x-auth-token and send it back for each request that needs to be performed as an authenticated user 
+Base for an authentication & secure proxy server implemented with spring boot, jwt and zuul.
 
 Proxy feature:
 
@@ -64,4 +58,4 @@ f. Database
 
 g. Last release
     
-    0.0.3 - 22/07/2019
+    0.0.4 - 22/07/2019

@@ -5,16 +5,16 @@ class AuthenticationService {
     }
 
     async authenticatedRequest(requestHandler=(http)=> {}){
-        let http = this.createAxiosInstance(X_AUTH_TOKEN_HEADER, AuthenticationService.getTokenFromLocalStorage());
+        let http = this.createAxiosInstance(AUTHORIZATION_HEADER, AuthenticationService.getTokenFromLocalStorage(), true);
         return requestHandler(http);
     }
-    async login(headerKey,headerValue){
+    async login(headerKey,headerValue, jwt=false){
         try {
             let http = this.createAxiosInstance(headerKey, headerValue);
             let response = await http.post(PATH_USER_INFO, {}, {});
-            if (headerKey !== X_AUTH_TOKEN_HEADER){
-                let token = response.headers[X_AUTH_TOKEN_HEADER];
-                localStorage.setItem(X_AUTH_TOKEN_HEADER, token);
+            if (!jwt){
+                let token = response.headers[AUTHORIZATION_HEADER.toLowerCase()];
+                localStorage.setItem(JWT_TOKEN_STORE, token);
             }
             return {message: null, user: response.data};
         } catch (e) {
@@ -28,7 +28,7 @@ class AuthenticationService {
     async loginWithTokenFromLocalStorage () {
         let token = AuthenticationService.getTokenFromLocalStorage();
         if (token) {
-            return await this.login(X_AUTH_TOKEN_HEADER,token);
+            return await this.login(AUTHORIZATION_HEADER,token, true);
         } else {
             console.log("token not present");
             return {};
@@ -50,9 +50,11 @@ class AuthenticationService {
         });
         return http;
     }
-
+    static logout () {
+        localStorage.removeItem(JWT_TOKEN_STORE);
+    }
     static getTokenFromLocalStorage () {
-        return localStorage.getItem(X_AUTH_TOKEN_HEADER);
+        return localStorage.getItem(JWT_TOKEN_STORE);
     }
     static hasRole(user,expectedRole) {
         let authorities = user.authorities || [ROLE_ANONYMOUS];

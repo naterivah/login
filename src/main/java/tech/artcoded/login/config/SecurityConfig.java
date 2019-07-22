@@ -1,27 +1,20 @@
 package tech.artcoded.login.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
-import org.springframework.security.web.savedrequest.NullRequestCache;
-import org.springframework.session.jdbc.config.annotation.web.http.EnableJdbcHttpSession;
-import org.springframework.session.web.http.HeaderHttpSessionIdResolver;
-import org.springframework.session.web.http.HttpSessionIdResolver;
+import tech.artcoded.login.config.jwt.JwtAuthenticationFilter;
+import tech.artcoded.login.config.jwt.JwtAuthorizationFilter;
 import tech.artcoded.login.repository.UserRepository;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 import static tech.artcoded.login.entity.Role.ADMIN;
 import static tech.artcoded.login.entity.Role.USER;
@@ -50,14 +43,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .anyRequest().permitAll()
                 .and().csrf().disable()
-                .requestCache()
-                .requestCache(new NullRequestCache()).and()
-                .httpBasic().realmName("login").and()
+
+                .httpBasic()
+                .realmName("login")
+                .and()
                 .exceptionHandling()
                 .authenticationEntryPoint((req, resp, e) -> resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED))
                 .and()
                 .formLogin().disable()
-        ;
+                .addFilter(new JwtAuthenticationFilter(authenticationManager(), env))
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(),env))
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Bean
@@ -69,16 +66,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth, BCryptPasswordEncoder passwordEncoder) throws Exception {
         auth.userDetailsService(userRepository).passwordEncoder(passwordEncoder);
     }
-    @Bean
-    public HttpSessionIdResolver httpSessionIdResolver() {
-        return HeaderHttpSessionIdResolver.xAuthToken();
-    }
 
     @Autowired
     UserRepository userRepository;
 
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    Environment env;
 
 
 }
