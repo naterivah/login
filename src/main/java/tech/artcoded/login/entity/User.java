@@ -60,4 +60,8 @@ public class User implements UserDetails {
         return roles;
     }
 
+    public void setAuthorities(Collection<Role> roles) {
+        this.roles = roles;
+    }
+
 }
