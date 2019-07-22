@@ -58,4 +58,8 @@ f. Database
 
 g. Last release
     
-    0.0.4 - 22/07/2019
+     v0.0.5-SNAPSHOT
+      
+     mvn release:prepare 
+
+     mvn release:perform -Darguments="-Dmaven.javadoc.skip=true -Dmaven.deploy.skip=true"
