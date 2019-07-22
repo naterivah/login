@@ -1,6 +1,7 @@
 spring:
   jpa:
     database: h2
+    open-in-view: false
   resources:
     add-mappings: true # disable the default frontend when you use only the backend server
 
