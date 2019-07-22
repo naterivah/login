@@ -27,6 +27,7 @@ c. Properties
 d. Frontend
     
     - Profile to use: dev
+    - Simple implementation using VueJs. code located to src/main/resources/public
     - default root url access: http://localhost:8070
     
 e. Default credentials
