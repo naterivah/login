@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().authorizeRequests()
-
+                // mapping
                 .antMatchers(HttpMethod.DELETE, "/**").hasAnyAuthority(ADMIN.getAuthority())
 
                 .antMatchers(HttpMethod.POST, "/admin/**").hasAuthority(ADMIN.getAuthority())
@@ -42,17 +42,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
                 .anyRequest().permitAll()
+
+                // csrf
                 .and().csrf().disable()
 
+                // http basic
                 .httpBasic()
                 .realmName("login")
+
+                // exception handling
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint((req, resp, e) -> resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED))
+
                 .and()
                 .formLogin().disable()
+
+                // jwt filter
                 .addFilter(new JwtAuthenticationFilter(authenticationManager(), env))
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(),env))
+
+                // stateless
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }

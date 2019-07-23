@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.Map;
 
 @RestController
-@CrossOrigin(value = "*", allowedHeaders = "*", exposedHeaders = "x-auth-token")
+@CrossOrigin(value = "*", allowedHeaders = "*")
 @Profile("dev")
 @RequestMapping("/admin")
 public class AdminFixtureController {

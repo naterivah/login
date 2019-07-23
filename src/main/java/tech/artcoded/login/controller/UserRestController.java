@@ -11,7 +11,7 @@ import tech.artcoded.login.repository.UserRepository;
 import java.security.Principal;
 
 @RestController
-@CrossOrigin(value = "*", allowedHeaders = "*", exposedHeaders = "x-auth-token")
+@CrossOrigin(value = "*", allowedHeaders = "*")
 @RequestMapping("/user")
 public class UserRestController {
     private final UserRepository userRepository;
